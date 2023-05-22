@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script src="https://glass-shiny-catsup.glitch.me/main.js"></script>
+</head>
+<body>
+    <div id="chat"></div>
+    <input type="text" id="message">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <script>
+        let chat = document.getElementById("chat");
+        let message = document.getElementById("message");
+
+        function sendMessage() {
+            let text = message.value;
+            message.value = "";
+
+            let div = document.createElement("div");
+            div.textContent = text;
+            chat.appendChild(div);
+
+            // Enviar mensagem para o servidor
+            server.sendMessage(text);
+        }
+
+        // Receber mensagens do servidor
+        server.onMessage = function(text) {
+            let div = document.createElement("div");
+            div.textContent = text;
+            chat.appendChild(div);
+        }
+    </script>
+</body>
+</html>
